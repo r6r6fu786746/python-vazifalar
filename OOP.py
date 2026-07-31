@@ -23,11 +23,15 @@ now = datetime.now()
 
 vaqt = now.strftime("%d.%m.%Y %H:%M:%S")
 
-data = open('book_data.xlsx', 'w')
+data = open('book_data.txt', 'a')
+
+tartib = 1
 
 
 
 class Book:
+
+    
 
     def __init__(self, name, author, limit):
         self.name = name
@@ -35,25 +39,36 @@ class Book:
         self.limit = limit
         self.status = True
 
-    def borrow(self):
+    def borrow(self, user_name):
+        global tartib
+        
+
         if self.status:
             self.status = False
-            data.write(f"{vaqt} vaqtda [Ismi: {self.name}, Author: {self.author}, Limit: {self.limit} kungacha] kitobi olindi")
+            data.write(f"{tartib}. {vaqt} vaqtda [Inson ismi: {user_name}, Ismi: {self.name}, Author: {self.author}, Limit: {self.limit} kungacha] kitobi olindi\n")
+            tartib += 1
             return f"{self.name}, {self.author} olindi"
 
         else:
-            return f"{self.name} kitobi mavjud emas yoki qarzga olinga"
+            return f"{self.name} kitobi mavjud emas yoki qarzga olingan"
 
-    def qaytar(self):
+    def qaytar(self,user_name):
+        global tartib
+        
+
         if not self.status:
             self.status = True
-            data.write(f"{vaqt} vaqtda [Ismi: {self.name}, Author: {self.author}, Limit: {self.limit} kungacha] kitobi qaytarildi")
+            data.write(f"{tartib}. {vaqt} vaqtda [Inson ismi: {user_name}, Ismi: {self.name}, Author: {self.author}, Limit: {self.limit} kungacha] kitobi qaytarildi\n")
+            tartib += 1
             return  f"{self.name} kitobi qaaytarildi"
         else:
-            return f"Kitob sizdaa yuq"
+            return f"Kitob sizda yuq"
 
-Atomic = Book('Atomic', "James", '10')
-print(Atomic.borrow())
+Atomic = Book('Atomic Habits', "James Clear", '10')
+
+print(Atomic.borrow("Ulug'bek"))
+print(Atomic.borrow("Ulug'bek"))
+print(Atomic.qaytar("Ulug'bek"))
 
 data.close()
 
