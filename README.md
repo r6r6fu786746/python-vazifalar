@@ -1,0 +1,1 @@
+Python vazifalar shu yerda
