@@ -1,0 +1,8 @@
+apple
+banana
+milk
+
+One more time:
+apple
+banana
+milk
